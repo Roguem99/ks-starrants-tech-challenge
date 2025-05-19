@@ -15,9 +15,8 @@ export default defineConfig({
     use: {
         baseURL: 'https://reqres.in/',
         extraHTTPHeaders: {
-        'Accept': 'x-api-key: reqres-free-v1',
-        'Authorization': `Bearer ${process.env.API_TOKEN}`,
-        'Content-Type': 'application/json'
+            'x-api-key': 'reqres-free-v1',
+            'Authorization': `Bearer ${process.env.API_TOKEN}`,
         },
     }
 });
