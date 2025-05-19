@@ -9,7 +9,8 @@ Tech challenge for Keeper Security
 
 ## Framework and Tools
 
-- [Karate](https://www.karatelabs.io/)
+- [Playwright](https://playwright.dev/docs/api-testing)
+
 
 
 - 
