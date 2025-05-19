@@ -1,0 +1,9 @@
+# Playwright files
+/node_modules
+/test-results
+/playwright/.cache/
+/playwright-report/
+/dist
+
+# User defined files
+.env

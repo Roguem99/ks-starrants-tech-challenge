@@ -1,0 +1,33 @@
+{
+  "name": "ks-starrants-tech-challenge",
+  "version": "1.0.0",
+  "description": "API tests using playwright and typescript",
+  "keywords": [
+    "api",
+    "test",
+    "automation"
+  ],
+  "homepage": "https://github.com/Roguem99/ks-starrants-tech-challenge#readme",
+  "bugs": {
+    "url": "https://github.com/Roguem99/ks-starrants-tech-challenge/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Roguem99/ks-starrants-tech-challenge.git"
+  },
+  "license": "ISC",
+  "author": "seth.tarrants@gmail.com",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "tsc --incremental",
+    "test": "playwright test --config=playwright.config.ts",
+    "exp": "node -r dotenv/config playwright test --config=playwright.config.ts dotenv_config_silent=true"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.19",
+    "dotenv": "^16.5.0",
+    "typescript": "^5.8.3"
+  }
+}
