@@ -1,13 +1,12 @@
-import { test, expect } from '@playwright/test';
-import { log } from 'console';
+import { test, expect, APIResponse } from '@playwright/test';
 
 /**
  * [GET]
  */
 test('should get a user', async ({ request }) => {
     const userTwoData = await request.get(`/api/users/2`);
-
-    expect(userTwoData.ok()).toBeTruthy();
+    let statusMsg = createStatusMessage(userTwoData);
+    expect(userTwoData.ok(), {message: statusMsg}).toBeTruthy();
     expect(await userTwoData.json()).toEqual(expect.objectContaining({
         data: {
             id: 2,
@@ -29,7 +28,8 @@ test('should get a user', async ({ request }) => {
 test('should get a list of users', async ({ request }) => {
     const getUserList = await request.get(`/api/users?page=2`);
 
-    expect(getUserList.ok()).toBeTruthy();
+    let statusMsg = createStatusMessage(getUserList);
+    expect(getUserList.ok(), {message: statusMsg}).toBeTruthy();
     const respBodyJson = await getUserList.json();
     const userEightDetails = respBodyJson.data[1]
 
@@ -59,8 +59,8 @@ test('should register a user', async ({ request }) => {
             password: registerPW
         }
     });
-
-    expect(registerUser.status()).toBe(200);
+    let statusMsgRegister = createStatusMessage(registerUser);
+    expect(registerUser.status(), {message: statusMsgRegister}).toBe(200);
 
     const registeredUserJson = await registerUser.json();
     expect(await registeredUserJson).toEqual(expect.objectContaining({
@@ -70,7 +70,8 @@ test('should register a user', async ({ request }) => {
 
     const regUserId = registeredUserJson.id;
     const regUserData = await request.get(`/api/users/${regUserId}`);
-    expect(regUserData.ok()).toBeTruthy();
+    let statusMsgUserData = createStatusMessage(regUserData);
+    expect(regUserData.ok(), {message: statusMsgUserData}).toBeTruthy();
     expect(await regUserData.json()).toEqual(expect.objectContaining({
         data: {
             avatar: "https://reqres.in/img/faces/4-image.jpg",
@@ -96,10 +97,8 @@ test('should update user 2', async ({ request }) => {
             job: "zion resident"
         }
     });
-    let actualStatus = putUser.status();
-    let actualStatusText = putUser.statusText();
-    let checkstring = `Status Code was ${actualStatus} - ${actualStatusText}`;
-    expect(putUser.ok(), {message: checkstring}).toBeTruthy();
+    let statusMsg = createStatusMessage(putUser);
+    expect(putUser.ok(), {message: statusMsg}).toBeTruthy();
 
     const userBodyJson = await putUser.json();
 
@@ -118,10 +117,9 @@ test('should delete user 2', async ({ request }) => {
             'Content-Type': 'application/json'
         }
     });
-    let actualStatus = putUser.status();
-    let actualStatusText = putUser.statusText();
-    let checkstring = `Status Code was ${actualStatus} - ${actualStatusText}`;
-    expect(actualStatus, {message: checkstring}).toBe(204);
+
+    let statusMsg = createStatusMessage(putUser);
+    expect(putUser.status(), {message: statusMsg}).toBe(204);
 });
 
 /**
@@ -130,11 +128,9 @@ test('should delete user 2', async ({ request }) => {
  */
 test('should attempt to get a nonexistent user', async ({ request }) => {
     const invalidUser = await request.get(`/api/users/8966678`);
-    let actualStatus = invalidUser.status();
-    let actualStatusText = invalidUser.statusText();
-    let checkstring = `Status Code was ${actualStatus} - ${actualStatusText}`;
 
-    expect(invalidUser.status(), {message: checkstring}).toBe(404);
+    let statusMsg = createStatusMessage(invalidUser);
+    expect(invalidUser.status(), {message: statusMsg}).toBe(404);
 });
 
 /**
@@ -150,7 +146,17 @@ test('should create a user', async ({ request }) => {
     });
 
     let msgString = (await loginReq.text()).toString();
-    expect(loginReq.status()).not.toBe(200);
+    let statusMsg = createStatusMessage(loginReq);
+
+    expect(loginReq.status(), {message: statusMsg}).not.toBe(200);
     expect(msgString).toBe('{\"error\":\"Missing email or username\"}');
 });
 
+/**
+ * 
+ * @param resp - {APIResponse} from an APIRequest
+ * @returns - {string} formatted message for more clear error reporting.
+ */
+function createStatusMessage(resp: APIResponse): string {
+    return `Status Code was ${resp.status()} - ${resp.statusText()}`
+}
