@@ -1,11 +1,9 @@
 # ks-starrants-tech-challenge
 Tech challenge for Keeper Security
 
-# API Testing Project
-
 ## API Under Test
 
-- [reqres](ttps://reqres.in)
+- [reqres](https://reqres.in)
 
 
 ## Framework and Tools
@@ -21,7 +19,7 @@ HTML reports are found post execution under the [playwright-report](./playwright
 
 ## CICD
 
-- 
+- [Repo Actions](https://github.com/Roguem99/ks-starrants-tech-challenge/actions)
 
 ## Getting Started
 - Clone repo 

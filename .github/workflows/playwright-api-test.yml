@@ -26,5 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm test
+    - name: Setting npm CI
+      run: npm ci
+    - name: Running Playwright tests
+      run: npm run test
