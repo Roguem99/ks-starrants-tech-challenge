@@ -8,7 +8,7 @@ export default defineConfig({
     tsconfig: './tsconfig.json',
     testDir: 'tests',
     fullyParallel: true,
-    reporter: [ 
+    reporter: [
         ['html', { open: 'never' }]
     ],
     outputDir: 'test-results',

@@ -5,6 +5,8 @@ Tech challenge for Keeper Security
 
 - [reqres](https://reqres.in)
 
+## Test Strategy
+The intent behind these tests were to evaluate the postive and negative paths of the api through user querying, editing and creating. Areas which were unable to be covered were performance and response time tracking.
 
 ## Framework and Tools
 
